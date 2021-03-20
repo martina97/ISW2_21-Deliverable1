@@ -7,7 +7,11 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -52,10 +56,12 @@ public class RetrieveTicketsID {
    }
 
 
-  public static void main(String[] args) throws IOException, JSONException {
+  public static void main(String[] args) throws IOException, JSONException, ParseException {
 	  
 	  String projName ="DAFFODIL";
-	   Integer j = 0, i = 0, total = 1;
+	   Integer j = 0;
+	   Integer i = 0;
+	   Integer total = 1;
 	   JSONArray issues ;
       //Get JSON API for closed bugs w/ AV in the project
       do {
@@ -72,13 +78,22 @@ public class RetrieveTicketsID {
          for (; i < total && i < j; i++) {
             //Iterate through each bug
             String key = issues.getJSONObject(i%1000).get("key").toString();
-            String data = issues.getJSONObject(i).getJSONObject("fields").getString("resolutiondate");
-            
-            System.out.println(key + "\tdata = " + data);
+            String date = issues.getJSONObject(i%1000).getJSONObject("fields").getString("resolutiondate");
+            String parsedDate = date.substring(0,16);
+            LocalDateTime resolutionDate= LocalDateTime.parse(parsedDate);
+            //System.out.println(key + "\tdate = " + date + "\t" + resolutionDate);
          }  
       }
       
       while (i < total);      
+      LocalDateTime resolutionDate2= LocalDateTime.parse("2021-02-04T19:39");
+      LocalDateTime resolutionDate= LocalDateTime.parse("2021-01-28T23:10");
+      if (resolutionDate.isAfter(resolutionDate2)) {
+    	  System.out.println(resolutionDate + " is after " + resolutionDate2);
+      }
+      else {
+    	  System.out.println("no");
+      }
    }
 
  
