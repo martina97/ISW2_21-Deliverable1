@@ -11,13 +11,14 @@ import java.text.ParseException;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.logging.Level;
 
 public class Main {
 	
 	private static List<Ticket> ticketList;
-	private static TreeMap<Month, ArrayList<String>> ticketMonthMap;
+	private static SortedMap<Month, ArrayList<String>> ticketMonthMap;
 
 	static Logger logger = Logger.getLogger(Main.class.getName());
 	

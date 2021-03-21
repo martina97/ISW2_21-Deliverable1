@@ -6,20 +6,17 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
-import java.nio.charset.Charset;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.Month;
-import java.time.Year;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.SortedMap;
 import java.util.TreeMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,6 +27,7 @@ import org.json.JSONArray;
 
 public class GetJIRAInfo {
 
+	static Logger logger = Logger.getLogger(GetJIRAInfo.class.getName());
 
 
    private static String readAll(Reader rd) throws IOException {
@@ -41,32 +39,23 @@ public class GetJIRAInfo {
 	      return sb.toString();
 	   }
 
-   public static JSONArray readJsonArrayFromUrl(String url) throws IOException, JSONException {
-      InputStream is = new URL(url).openStream();
-      try {
-         BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
-         String jsonText = readAll(rd);
-         JSONArray json = new JSONArray(jsonText);
-         return json;
-       } finally {
-         is.close();
-       }
-   }
 
    public static JSONObject readJsonFromUrl(String url) throws IOException, JSONException {
-      InputStream is = new URL(url).openStream();
-      try {
-         BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
-         String jsonText = readAll(rd);
-         JSONObject json = new JSONObject(jsonText);
-         return json;
-       } finally {
-         is.close();
-       }
-   }
+		InputStream is = new URL(url).openStream();
+		try (
+
+			// BufferedReader rd = new BufferedReader(new InputStreamReader(is,
+			BufferedReader rd = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8.name()))) {
+
+			String jsonText = readAll(rd);
+			return (new JSONObject(jsonText));
+		} finally {
+			is.close();
+		}
+	}
 
 // ritorna la lista di ticket con le corrispondenti resolutionDate e creationDate
-  public static TreeMap<Month, ArrayList<String>> retrieveTickets() throws JSONException, IOException {
+  public static SortedMap<Month, ArrayList<String>> retrieveTickets() throws JSONException, IOException {
 	  
 	  String projName ="DAFFODIL";
 	   Integer j = 0;
@@ -94,7 +83,6 @@ public class GetJIRAInfo {
             //Iterate through each bug
             String key = issues.getJSONObject(i%1000).get("key").toString();
             LocalDateTime resolutionDate= LocalDateTime.parse(issues.getJSONObject(i%1000).getJSONObject("fields").getString("resolutiondate").substring(0,16));
-            //System.out.println(key + "\tdate = " + resolutionDate );
             Ticket ticket = new Ticket(key, resolutionDate);
             ticketList.add(ticket);
             resolDateList.add(resolutionDate);
@@ -106,42 +94,38 @@ public class GetJIRAInfo {
       
       // creo mappa avente come chiave l'id del ticket e come valore il mese relativo all'anno più frequente
       getTicketMonthMap(myYear, ticketList, ticketMonthMap);
-	  System.out.println(ticketMonthMap);
-
-      //System.out.println(listaTicket.get(0).getID());
-      //return ticketList;
+      System.out.println(ticketMonthMap);
+      
       return ticketMonthMap;
    }
 
   
   
-  public static Integer getMostFrequentYear(ArrayList<LocalDateTime> resolDateList) {
+  public static Integer getMostFrequentYear(List<LocalDateTime> resolDateList) {
 	  
-	  TreeMap<Integer, Integer> capitalCities = new TreeMap<>();
+	  TreeMap<Integer, Integer> yearsAndTickets = new TreeMap<>();
 	  for (int i = 0; i<resolDateList.size();i++) {
 		  Integer year = resolDateList.get(i).getYear();
-		  if (!capitalCities.containsKey(year)) {
+		  if (!yearsAndTickets.containsKey(year)) {
 			  //l'anno non e presente nell'Hash Map, quindi lo aggiungo
-			  capitalCities.put(year, 1);
+			  yearsAndTickets.put(year, 1);
 		  }
 		  else {
 			  //l'anno e presente nell'Hash Map, quindi incremento il valore associato all'anno
-			  capitalCities.put(year, capitalCities.get(year) + 1);
+			  yearsAndTickets.put(year, yearsAndTickets.get(year) + 1);
 		  }
-		  //System.out.println(resolDateList.get(i).getYear());
 	  }
-	  System.out.println(capitalCities);
-	  //tils.printTreeMap(capitalCities);
-	  capitalCities.forEach((key, value) -> System.out.println(key + "= " + value + "\n\n"));
+	  //yearsAndTickets.forEach((key, value) -> logger.log(Level.INFO, key + "= " + value + "\n\n"));
+	  yearsAndTickets.forEach((key, value) -> logger.log(Level.INFO, "key: {0} --> value: {1} ",new Object[] { key, value,}));
 
 	  // trovo l'anno in cui ci sono stati più ticket risolti
-	  Integer myYear = Collections.max(capitalCities.entrySet(), Map.Entry.comparingByValue()).getKey();
-	  System.out.println(myYear);
-	  return myYear;
+	  Integer myYear = Collections.max(yearsAndTickets.entrySet(), Map.Entry.comparingByValue()).getKey();
+	  logger.log(Level.INFO,"\n\n{0}", myYear);
+	return myYear;
   }
   
   
-  public static void getTicketMonthMap(Integer myYear, ArrayList<Ticket> ticketList, TreeMap<Month, ArrayList<String>> ticketMonthMap) {
+  public static void getTicketMonthMap(Integer myYear, List<Ticket> ticketList, SortedMap<Month, ArrayList<String>> ticketMonthMap) {
 	  Integer count = 0;
 	  for (int i =0; i<ticketList.size(); i++) {
 		  Ticket ticket = ticketList.get(i);
@@ -151,12 +135,11 @@ public class GetJIRAInfo {
 			  String ticketID = ticket.getID();
 			  ticketMonthMap.putIfAbsent(myMonth, new ArrayList<String>());
 			  ticketMonthMap.get(myMonth).add(ticketID);
-			  System.out.println("La data del ticket + : " + ticket.getResolutionDate());
 		  }
 	  }
 	  System.out.println(ticketMonthMap.size());
 	  System.out.println("count = " + count );
-	  ticketMonthMap.forEach((key, value) -> System.out.println(key + "= " + value + "\n\n"));
+	  ticketMonthMap.forEach((key, value) -> logger.log(Level.INFO, "key: {0} --> value: {1} ",new Object[] { key, value,}));
 	  
 	  
   }
