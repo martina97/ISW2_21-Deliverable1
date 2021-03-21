@@ -3,29 +3,29 @@ package deliverable;
 import java.io.FileWriter;
 import java.time.Month;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.TreeMap;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
 
 public class CSVWriter {
 	
 	
 	
-	
+	static Logger logger = Logger.getLogger(CSVWriter.class.getName());
+
 	
 	public static void writeCsv(String filePath, TreeMap<Month, ArrayList<String>> ticketMonthMap) {
 		 
 		
-		  
-		//Log.infoLog("starting write user.csv file: " + filePath);
-		System.out.println("starting write user.csv file: " + filePath);
+	    logger.log(Level.INFO, "starting write user.csv file: {0}.",filePath); // oppure  logger.info("matteo");
+
 		  try (
 		   FileWriter fileWriter = new FileWriter(filePath)) {
 		   
 		   fileWriter.append("Month ; Ticket ID\n");
 		   for(Month month : ticketMonthMap.keySet()) {
 			   for(String listTicketId : ticketMonthMap.get(month)) {
-				   System.out.println("mese = " + month + "ticketID = " + listTicketId);
 				   fileWriter.append(String.valueOf(month));
 				   fileWriter.append(";");
 				   fileWriter.append(listTicketId);
@@ -34,8 +34,8 @@ public class CSVWriter {
 		   }
 		   
 		  } catch (Exception ex) {
-	       System.out.println("Error in csv writer");
-		   ex.printStackTrace();
+			  logger.log(Level.SEVERE,"Error in csv writer");
+			  ex.printStackTrace();
 		  
 		  }
 		 }
