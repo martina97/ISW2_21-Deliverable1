@@ -24,7 +24,7 @@ import org.json.JSONObject;
 import org.json.JSONArray;
 
 
-public class getReleaseInfo {
+public class GetGITInfo {
 	
 	   public static HashMap<LocalDateTime, String> releaseNames;
 	   public static HashMap<LocalDateTime, String> releaseID;
