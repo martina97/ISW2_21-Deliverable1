@@ -1,0 +1,16 @@
+
+<entities.Ticket#getResolutionDate()Ljava/time/LocalDateTime;^
+TD:/Programmi/Eclipse/eclipse-workspace/ISW2_21-Deliverable1/src/entities/Ticket.java& &('"1*›
+1^
+TD:/Programmi/Eclipse/eclipse-workspace/ISW2_21-Deliverable1/src/entities/Ticket.java'	 '(±
+®
+^
+TD:/Programmi/Eclipse/eclipse-workspace/ISW2_21-Deliverable1/src/entities/Ticket.java'	 '(
+%0java.time.LocalDateTime"__id*'*%
+entities.Ticket"
+resolutionDate"
+^
+TD:/Programmi/Eclipse/eclipse-workspace/ISW2_21-Deliverable1/src/entities/Ticket.java' '(
+
+%0java.time.LocalDateTimeB
+entities.Ticket

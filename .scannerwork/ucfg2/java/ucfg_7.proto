@@ -1,0 +1,16 @@
+
+:entities.Ticket#getCreationDate()Ljava/time/LocalDateTime;^
+TD:/Programmi/Eclipse/eclipse-workspace/ISW2_21-Deliverable1/src/entities/Ticket.java* *(%"1*ô
+1^
+TD:/Programmi/Eclipse/eclipse-workspace/ISW2_21-Deliverable1/src/entities/Ticket.java+	 +(Ø
+¨
+^
+TD:/Programmi/Eclipse/eclipse-workspace/ISW2_21-Deliverable1/src/entities/Ticket.java+	 +(
+%0java.time.LocalDateTime"__id*%*#
+entities.Ticket"
+creationDate"Å
+^
+TD:/Programmi/Eclipse/eclipse-workspace/ISW2_21-Deliverable1/src/entities/Ticket.java+ +(
+
+%0java.time.LocalDateTimeB
+entities.Ticket
