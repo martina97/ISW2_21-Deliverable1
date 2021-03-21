@@ -19,16 +19,15 @@ getClass(),java.lang.Object#getClass()Ljava/lang/Class;5
 hashCode()java.lang.Object#hashCode()I–
 deliverable.Mainjava.lang.Object&
 <init>()deliverable.Main#<init>()VH
-main([Ljava/lang/String;)+deliverable.Main#main([Ljava/lang/String;)V‹
-deliverable.GetJIRAInfojava.lang.ObjectQ
-retrieveTickets()<deliverable.GetJIRAInfo#retrieveTickets()Ljava/util/TreeMap;¹
-NgetTicketMonthMap(Ljava/lang/Integer;Ljava/util/ArrayList;Ljava/util/TreeMap;)gdeliverable.GetJIRAInfo#getTicketMonthMap(Ljava/lang/Integer;Ljava/util/ArrayList;Ljava/util/TreeMap;)V`
+main([Ljava/lang/String;)+deliverable.Main#main([Ljava/lang/String;)Vƒ
+deliverable.GetJIRAInfojava.lang.ObjectS
+retrieveTickets()>deliverable.GetJIRAInfo#retrieveTickets()Ljava/util/SortedMap;³
+KgetTicketMonthMap(Ljava/lang/Integer;Ljava/util/List;Ljava/util/SortedMap;)ddeliverable.GetJIRAInfo#getTicketMonthMap(Ljava/lang/Integer;Ljava/util/List;Ljava/util/SortedMap;)V`
 readAll(Ljava/io/Reader;)Cdeliverable.GetJIRAInfo#readAll(Ljava/io/Reader;)Ljava/lang/String;-
-<init>()!deliverable.GetJIRAInfo#<init>()Vw
-(readJsonArrayFromUrl(Ljava/lang/String;)Kdeliverable.GetJIRAInfo#readJsonArrayFromUrl(Ljava/lang/String;)LJSONArray;ƒ
-*getMostFrequentYear(Ljava/util/ArrayList;)Udeliverable.GetJIRAInfo#getMostFrequentYear(Ljava/util/ArrayList;)Ljava/lang/Integer;n
+<init>()!deliverable.GetJIRAInfo#<init>()Vn
 #readJsonFromUrl(Ljava/lang/String;)Gdeliverable.GetJIRAInfo#readJsonFromUrl(Ljava/lang/String;)LJSONObject;O
-main([Ljava/lang/String;)2deliverable.GetJIRAInfo#main([Ljava/lang/String;)V¤
+main([Ljava/lang/String;)2deliverable.GetJIRAInfo#main([Ljava/lang/String;)Vy
+%getMostFrequentYear(Ljava/util/List;)Pdeliverable.GetJIRAInfo#getMostFrequentYear(Ljava/util/List;)Ljava/lang/Integer;¤
 deliverable.CSVWriterjava.lang.Object+
 <init>()deliverable.CSVWriter#<init>()VM
 main([Ljava/lang/String;)0deliverable.CSVWriter#main([Ljava/lang/String;)V}
