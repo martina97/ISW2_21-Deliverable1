@@ -54,8 +54,9 @@ public class GetJIRAInfo {
 		}
 	}
 
+   /*
 // ritorna la lista di ticket con le corrispondenti resolutionDate e creationDate
-  public static SortedMap<Month, ArrayList<String>> retrieveTickets() throws JSONException, IOException {
+  public static SortedMap<Month, ArrayList<String>> retrieveTickets() {
 	  
 	  String projName ="DAFFODIL";
 	   Integer j = 0;
@@ -75,6 +76,8 @@ public class GetJIRAInfo {
                 + projName + "%22AND%22issueType%22=%22Bug%22AND(%22status%22=%22closed%22OR"
                 + "%22status%22=%22resolved%22)AND%22resolution%22=%22fixed%22&fields=key,resolutiondate,versions,created&startAt="
                 + i.toString() + "&maxResults=" + j.toString();
+         try 
+         {
          JSONObject json = readJsonFromUrl(url);
          
          issues = json.getJSONArray("issues");
@@ -86,8 +89,23 @@ public class GetJIRAInfo {
             Ticket ticket = new Ticket(key, resolutionDate);
             ticketList.add(ticket);
             resolDateList.add(resolutionDate);
-         }  
-      } while (i < total);  
+            System.out.println(ticket.getID() + "--->" + resolutionDate);
+         
+      } 
+      }
+	
+		catch (JSONException e) 
+		{
+			System.out.println("Error during JSON document analysis.");
+			e.printStackTrace();
+		} 
+		catch (IOException e) 
+		{
+			System.out.println("Error reading JSON file.");
+			e.printStackTrace();
+		}
+		} 
+      	while (i < total);  
       
       // trovo l'anno in cui c'è stata la maggior parte dei ticket risolti
       myYear = getMostFrequentYear(resolDateList);
@@ -98,8 +116,61 @@ public class GetJIRAInfo {
       
       return ticketMonthMap;
    }
-
-  
+*/
+   
+//ritorna la lista di ticket con le corrispondenti resolutionDate e creationDate
+ public static ArrayList<Ticket> retrieveTickets2() {
+	  
+	  String projName ="DAFFODIL";
+	   Integer j = 0;
+	   Integer i = 0;
+	   Integer total = 1;
+	   Integer myYear; 
+	   TreeMap<Month, ArrayList<String>> ticketMonthMap = new TreeMap<>();
+	   JSONArray issues ;
+	 /// RITORNA UNA LISTA DI TICKET
+	 ArrayList<Ticket> ticketList = new ArrayList<>();
+	 ArrayList<LocalDateTime> resolDateList = new ArrayList<>();
+     //Get JSON API for closed bugs w/ AV in the project
+     do {
+        //Only gets a max of 1000 at a time, so must do this multiple times if bugs >1000
+        j = i + 1000;
+        String url = "https://issues.apache.org/jira/rest/api/2/search?jql=project=%22"
+               + projName + "%22AND%22issueType%22=%22Bug%22AND(%22status%22=%22closed%22OR"
+               + "%22status%22=%22resolved%22)AND%22resolution%22=%22fixed%22&fields=key,resolutiondate,versions,created&startAt="
+               + i.toString() + "&maxResults=" + j.toString();
+        try 
+        {
+        JSONObject json = readJsonFromUrl(url);
+        
+        issues = json.getJSONArray("issues");
+        total = json.getInt("total");
+        for (; i < total && i < j; i++) {
+           //Iterate through each bug
+           String key = issues.getJSONObject(i%1000).get("key").toString();
+           Ticket ticket = new Ticket(key);
+           ticketList.add(ticket);
+           System.out.println(ticket.getID());
+        
+     } 
+     }
+	
+		catch (JSONException e) 
+		{
+			System.out.println("Error during JSON document analysis.");
+			e.printStackTrace();
+		} 
+		catch (IOException e) 
+		{
+			System.out.println("Error reading JSON file.");
+			e.printStackTrace();
+		}
+		} 
+     	while (i < total);  
+          
+     
+     return ticketList;
+  }
   
   public static Integer getMostFrequentYear(List<LocalDateTime> resolDateList) {
 	  
@@ -116,7 +187,7 @@ public class GetJIRAInfo {
 		  }
 	  }
 	  //yearsAndTickets.forEach((key, value) -> logger.log(Level.INFO, key + "= " + value + "\n\n"));
-	  yearsAndTickets.forEach((key, value) -> logger.log(Level.INFO, "key: {0} --> value: {1} ",new Object[] { key, value,}));
+	  yearsAndTickets.forEach((key, value) -> logger.log(Level.INFO, "nkey: {0} --> value: {1} ",new Object[] { key, value,}));
 
 	  // trovo l'anno in cui ci sono stati più ticket risolti
 	  Integer myYear = Collections.max(yearsAndTickets.entrySet(), Map.Entry.comparingByValue()).getKey();

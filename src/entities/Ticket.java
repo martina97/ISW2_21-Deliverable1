@@ -1,5 +1,6 @@
 package entities;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -7,7 +8,7 @@ public class Ticket {
 
 	private String id;
 	private List<Integer> aV;
-	private LocalDateTime resolutionDate;
+	private LocalDate resolutionDate;
 	private LocalDateTime creationDate;
 	private Integer fV;
 	private Integer oV;
@@ -17,11 +18,11 @@ public class Ticket {
 
 	// costruttore
 	//public Ticket(String id, List<Integer> aV, LocalDateTime resolutionDate, LocalDateTime creationDate) {
-	public Ticket(String id, LocalDateTime resolutionDate) {
+	public Ticket(String id) {
 
 		this.id = id;
 		//this.aV = aV;
-		this.resolutionDate = resolutionDate;
+		//this.resolutionDate = resolutionDate;
 		//this.creationDate = creationDate;
 	}
 
@@ -35,7 +36,7 @@ public class Ticket {
 		return aV;
 	}
 
-	public LocalDateTime getResolutionDate() {
+	public LocalDate getResolutionDate() {
 		return resolutionDate;
 	}
 
@@ -72,7 +73,7 @@ public class Ticket {
 		this.aV = aV;
 	}
 
-	public void setResolutionDate(LocalDateTime resolutionDate) {
+	public void setResolutionDate(LocalDate resolutionDate) {
 		this.resolutionDate = resolutionDate;
 	}
 
