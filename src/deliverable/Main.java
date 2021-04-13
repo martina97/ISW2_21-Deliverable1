@@ -21,6 +21,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -29,10 +31,13 @@ import java.time.Year;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.SortedMap;
 import java.util.TimeZone;
 import java.util.TreeMap;
@@ -45,13 +50,14 @@ public class Main {
 	private static final String REPO2 ="D:/Programmi/Eclipse/eclipse-workspace/daffodil/.git";
 	private static Path repoPath = Paths.get("D:/Programmi/Eclipse/eclipse-workspace/ISW2_21-Deliverable1");
 	private static Path repoPath2 = Paths.get("D:/Programmi/Eclipse/eclipse-workspace/daffodil");
+	private static ArrayList<Ticket> ticketList;
 
 	private static Repository repository;
 
-   public static void main(String[] args) throws IllegalStateException, GitAPIException, IOException {
+   public static void main(String[] args) throws IllegalStateException, GitAPIException, IOException, ParseException {
 	   
-	   
-	   ArrayList<Ticket> ticketList = GetJIRAInfo.retrieveTickets2();
+	   TreeMap<Integer, ArrayList<Month>> csvEntries = new TreeMap<>();
+	   ticketList = GetJIRAInfo.retrieveTickets2();
 	   ArrayList<RevCommit> commitList = new ArrayList<>();
 	   String filePath = "D:\\" + "Programmi\\Eclipse\\eclipse-workspace\\ISW2_21-Deliverable1\\csv\\TicketsAndMonths.csv";
 
@@ -61,11 +67,32 @@ public class Main {
 	   getGitINFO.getAllCommit(repoPath2, commitList);
 	   ArrayList<LocalDate> resolutionDates = findCommitTicket(commitList, ticketList);
 	   System.out.println("\n\nresolutionDates size == " + resolutionDates.size());
-	   createEntriesCsv(resolutionDates);
-	   //CSVWriter.writeCsv2(filePath, ticketList);
+	   //createEntriesCsv(resolutionDates);
+	   createEntriesCsv2(csvEntries);
+	   
+	   
+	   CSVWriter.writeCsv2(filePath, csvEntries);
 
 
    	}
+   
+   public static TreeMap<Integer, ArrayList<Month>> createEntriesCsv2(TreeMap<Integer, ArrayList<Month>> csvEntries ) {
+	   
+	   
+	   for(Ticket ticket : ticketList) {
+		   int year = ticket.getResolutionDate().getYear();
+		   Month month = ticket.getResolutionDate().getMonth();
+		   csvEntries.putIfAbsent(year, new ArrayList<Month>());
+		   csvEntries.get(year).add(month);
+	   }
+	   
+	   for (Entry<Integer, ArrayList<Month>> entry : csvEntries.entrySet()) {
+		   System.out.println("Key: " + entry.getKey() + ". Value: " + entry.getValue());
+		}
+	   
+	   return csvEntries;
+   }
+   
    
    
    public static ArrayList<LocalDate> findCommitTicket(ArrayList<RevCommit> commitList,ArrayList<Ticket> ticketList ) throws IOException {
@@ -90,8 +117,8 @@ public class Main {
 			   if (commit.contains(ticketID1 +",") || commit.contains(ticketID1 +"\r") || commit.contains(ticketID1 +"\n")|| commit.contains(ticketID1 + " ") || commit.contains(ticketID1 +":")
 							 || commit.contains(ticketID1 +".")|| commit.contains(ticketID1 +")")|| commit.contains(ticketID2 +")") || commit.contains(ticketID2 + ",") || commit.endsWith(ticketID1) || commit.endsWith(ticketID2) ||
 							 commit.contains(ticketID2 + "\r")|| commit.contains(ticketID2+"\n") || commit.contains(ticketID2 + " ") || commit.contains(ticketID2 + ":") || commit.contains(ticketID2 + ".")) {				   
-				   System.out.println(rev.getId());
-				   System.out.println(commit);
+				   //System.out.println(rev.getId());
+				   //System.out.println(commit);
 
 				   /*
 				   PersonIdent authorIdent = commit.getAuthorIdent();
@@ -115,9 +142,9 @@ public class Main {
 		   if (commitDateList.size() != 0) {
 			   //System.out.println("lista = " + commitDateList);
 			   Collections.sort(commitDateList);
-			   //System.out.println("\n\nlista ordinate = " + commitDateList);
+			   System.out.println("\n\nlista ordinata = " + commitDateList);
 			   LocalDate resolutionDate = commitDateList.get(commitDateList.size()-1);
-			   //System.out.println("data più recente = " + resolutionDate);
+			   System.out.println("data più recente = " + resolutionDate);
 			   ticket.setResolutionDate(resolutionDate);
 
 		   }

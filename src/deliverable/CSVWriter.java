@@ -1,10 +1,12 @@
 package deliverable;
 
 import java.io.FileWriter;
+import java.text.SimpleDateFormat;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.Map.Entry;
 import java.util.SortedMap;
+import java.util.TreeMap;
 import java.util.logging.Logger;
 
 import entities.Ticket;
@@ -46,7 +48,7 @@ public class CSVWriter {
 		  }
 		 }
 	
-public static void writeCsv2(String filePath, ArrayList<Ticket> ticketList) {
+public static void writeCsv2(String filePath, TreeMap<Integer, ArrayList<Month>> csvEntries) {
 		 
 		
 	    logger.log(Level.INFO, "starting write user.csv file: {0}.",filePath); 
@@ -54,11 +56,57 @@ public static void writeCsv2(String filePath, ArrayList<Ticket> ticketList) {
 		  try (
 		   FileWriter fileWriter = new FileWriter(filePath)) {
 		   
-		   fileWriter.append("Month ; Ticket ID\n");
-		   for (Ticket ticket : ticketList) {
-			   fileWriter.append(ticket.getResolutionDate().toString());
+		   fileWriter.append("Month-Year ; Number of fixed Tickets\n");
+		   for (Entry<Integer, ArrayList<Month>> entry : csvEntries.entrySet()) {
+			   ArrayList<Month> monthList = entry.getValue();
+			   Integer year = entry.getKey();
+			   fileWriter.append("JANUARY - "  + year);
 			   fileWriter.append(";");
-			   fileWriter.append(ticket.getID());
+			   fileWriter.append(Utils.countOccurrences(monthList,Month.JANUARY).toString());
+			   fileWriter.append("\n");
+			   fileWriter.append("FEBRUARY - " + year);
+			   fileWriter.append(";");
+			   fileWriter.append(Utils.countOccurrences(monthList,Month.FEBRUARY).toString());
+			   fileWriter.append("\n");
+			   fileWriter.append("MARCH - " + year);
+			   fileWriter.append(";");
+			   fileWriter.append(Utils.countOccurrences(monthList,Month.MARCH).toString());
+			   fileWriter.append("\n");
+			   fileWriter.append("APRIL - " + year);
+			   fileWriter.append(";");
+			   fileWriter.append(Utils.countOccurrences(monthList,Month.APRIL).toString());
+			   fileWriter.append("\n");
+			   fileWriter.append("MAY - " + year);
+			   fileWriter.append(";");
+			   fileWriter.append(Utils.countOccurrences(monthList,Month.MAY).toString());
+			   fileWriter.append("\n");
+			   fileWriter.append("JUNE - " + year);
+			   fileWriter.append(";");
+			   fileWriter.append(Utils.countOccurrences(monthList,Month.JUNE).toString());
+			   fileWriter.append("\n");
+			   fileWriter.append("JULY - " + year);
+			   fileWriter.append(";");
+			   fileWriter.append(Utils.countOccurrences(monthList,Month.JULY).toString());
+			   fileWriter.append("\n");
+			   fileWriter.append("AUGUST - " + year);
+			   fileWriter.append(";");
+			   fileWriter.append(Utils.countOccurrences(monthList,Month.AUGUST).toString());
+			   fileWriter.append("\n");
+			   fileWriter.append("SEPTEMBER - " + year);
+			   fileWriter.append(";");
+			   fileWriter.append(Utils.countOccurrences(monthList,Month.SEPTEMBER).toString());
+			   fileWriter.append("\n");
+			   fileWriter.append("OCTOBER - " + year);
+			   fileWriter.append(";");
+			   fileWriter.append(Utils.countOccurrences(monthList,Month.OCTOBER).toString());
+			   fileWriter.append("\n");
+			   fileWriter.append("NOVEMBER - " + year);
+			   fileWriter.append(";");
+			   fileWriter.append(Utils.countOccurrences(monthList,Month.NOVEMBER).toString());
+			   fileWriter.append("\n");
+			   fileWriter.append("DECEMBER - " + year);
+			   fileWriter.append(";");
+			   fileWriter.append(Utils.countOccurrences(monthList,Month.DECEMBER).toString());
 			   fileWriter.append("\n");
 		   }
 		   
