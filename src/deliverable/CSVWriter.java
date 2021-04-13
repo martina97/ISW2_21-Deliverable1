@@ -1,54 +1,27 @@
 package deliverable;
 
 import java.io.FileWriter;
-import java.text.SimpleDateFormat;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.Map.Entry;
 import java.util.SortedMap;
-import java.util.TreeMap;
 import java.util.logging.Logger;
 
-import entities.Ticket;
 
 import java.util.logging.Level;
 
 
 public class CSVWriter {
 	
-	
+	private static String filePath = "D:\\" + "Programmi\\Eclipse\\eclipse-workspace\\ISW2_21-Deliverable1\\csv\\TicketsAndMonths.csv";
+
 	
 	static Logger logger = Logger.getLogger(CSVWriter.class.getName());
 
 	
-	public static void writeCsv(String filePath, SortedMap<Month, ArrayList<String>> ticketMonthMap) {
-		 
-		
-	    logger.log(Level.INFO, "starting write user.csv file: {0}.",filePath); 
-
-		  try (
-		   FileWriter fileWriter = new FileWriter(filePath)) {
-		   
-		   fileWriter.append("Month ; Ticket ID\n");
-		   for(Entry<Month, ArrayList<String>> entry : ticketMonthMap.entrySet()) {
-			   Month month = entry.getKey();
-			   for(String listTicketId : ticketMonthMap.get(month)) {
-				   fileWriter.append(String.valueOf(month));
-				   fileWriter.append(";");
-				   fileWriter.append(listTicketId);
-				   fileWriter.append("\n");
-			   }
-		   }
-		   
-		   
-		  } catch (Exception ex) {
-			  logger.log(Level.SEVERE,"Error in csv writer");
-			  ex.printStackTrace();
-		  
-		  }
-		 }
-	
-public static void writeCsv2(String filePath, TreeMap<Integer, ArrayList<Month>> csvEntries) {
+public static void writeCsv(SortedMap<Integer, ArrayList<Month>> csvEntries) {
 		 
 		
 	    logger.log(Level.INFO, "starting write user.csv file: {0}.",filePath); 
@@ -109,7 +82,6 @@ public static void writeCsv2(String filePath, TreeMap<Integer, ArrayList<Month>>
 			   fileWriter.append(Utils.countOccurrences(monthList,Month.DECEMBER).toString());
 			   fileWriter.append("\n");
 		   }
-		   
 		   
 		   
 		  } catch (Exception ex) {
