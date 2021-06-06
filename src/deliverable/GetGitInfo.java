@@ -2,6 +2,7 @@ package deliverable;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.jgit.api.Git;
@@ -13,8 +14,10 @@ public class GetGitInfo {
 
 	private GetGitInfo() {}
 	
-	public static void getAllCommit(Path repoPath, List<RevCommit> commitList) throws IllegalStateException, GitAPIException, IOException {
+	public static List<RevCommit> getAllCommit(Path repoPath) throws IllegalStateException, GitAPIException, IOException {
 		
+		List<RevCommit> commitList = new ArrayList<>();
+
 		try (Git git = Git.init().setDirectory(repoPath.toFile()).call()) {
 			 //
 		    }
@@ -30,6 +33,7 @@ public class GetGitInfo {
 		    		 commitList.add(rev);
 		    	 }
 		    }
+		    return commitList;
 	}
 		
 	

@@ -32,15 +32,13 @@ public class Main {
 	private static Logger logger = Logger.getLogger(Main.class.getName());
 	private static Path repoPath = Paths.get("D:/Programmi/Eclipse/eclipse-workspace/daffodil");
 	private static List<Ticket> ticketList;
-
 	
    public static void main(String[] args) throws IllegalStateException, GitAPIException, IOException {
 	   
 	   TreeMap<Integer, ArrayList<Month>> csvEntries = new TreeMap<>();
 	   ticketList = GetJIRAInfo.retrieveTickets();
 	   
-	   ArrayList<RevCommit> commitList = new ArrayList<>();
-	   GetGitInfo.getAllCommit(repoPath, commitList);
+	   List<RevCommit> commitList = GetGitInfo.getAllCommit(repoPath);
 	   findCommitTicket(commitList, ticketList);
 	   createEntriesCsv(csvEntries);
 	   CSVWriter.writeCsv(csvEntries);
@@ -49,7 +47,6 @@ public class Main {
    
    
    public static SortedMap<Integer, ArrayList<Month>> createEntriesCsv(SortedMap<Integer, ArrayList<Month>> csvEntries ) {
-	   
 	   
 	   for(Ticket ticket : ticketList) {
 		   int year = ticket.getResolutionDate().getYear();
