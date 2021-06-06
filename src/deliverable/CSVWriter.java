@@ -88,8 +88,7 @@ public static void writeCsv(SortedMap<Integer, ArrayList<Month>> csvEntries) {
 		   
 		  } catch (Exception ex) {
 			  logger.log(Level.SEVERE,"Error in csv writer");
-			  ex.printStackTrace();
-		  
+			  System.exit(1);		  
 		  }
 		 }	
 		 

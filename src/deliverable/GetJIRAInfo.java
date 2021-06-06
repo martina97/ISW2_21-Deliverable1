@@ -91,12 +91,12 @@ public class GetJIRAInfo {
 		catch (JSONException e) 
 		{
 			logger.log(Level.SEVERE,"Error during JSON document analysis.");
-			e.printStackTrace();
+			System.exit(1);		  
 		} 
 		catch (IOException e) 
 		{
 			logger.log(Level.SEVERE,"Error reading JSON file.");
-			e.printStackTrace();
+			System.exit(1);		  
 		}
 	} 
      	while (i < total);  
