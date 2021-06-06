@@ -1,8 +1,7 @@
 package deliverable;
 
 import java.io.FileWriter;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.Map.Entry;
@@ -15,7 +14,10 @@ import java.util.logging.Level;
 
 public class CSVWriter {
 	
-	private static String filePath = "D:\\" + "Programmi\\Eclipse\\eclipse-workspace\\ISW2_21-Deliverable1\\csv\\TicketsAndMonths.csv";
+	private CSVWriter() {}
+
+	
+	private static String filePath = "D:\\" + "Programmi\\Eclipse\\eclipse-workspace\\ISW2_21-Deliverable1\\csv\\TicketsAndMonthsGIUGNO.csv";
 
 	
 	static Logger logger = Logger.getLogger(CSVWriter.class.getName());
@@ -90,11 +92,6 @@ public static void writeCsv(SortedMap<Integer, ArrayList<Month>> csvEntries) {
 		  
 		  }
 		 }	
-	
-	public static void main(String[] args) {
-		 
-		 // main
-		 }
 		 
 		 
 }

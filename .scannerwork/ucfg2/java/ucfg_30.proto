@@ -1,55 +1,158 @@
 
-Cdeliverable.GetJIRAInfo#readAll(Ljava/io/Reader;)Ljava/lang/String;f
-\D:/Programmi/Eclipse/eclipse-workspace/ISW2_21-Deliverable1/src/deliverable/GetJIRAInfo.java! !( "4*Ì
-2f
-\D:/Programmi/Eclipse/eclipse-workspace/ISW2_21-Deliverable1/src/deliverable/GetJIRAInfo.java%
- %(˙˜
-f
-\D:/Programmi/Eclipse/eclipse-workspace/ISW2_21-Deliverable1/src/deliverable/GetJIRAInfo.java%
- %(
-%3java.lang.StringBuilder":java.lang.StringBuilder#append(C)Ljava/lang/StringBuilder;*
+Pdeliverable.GetJIRAInfo#getMostFrequentYear(Ljava/util/List;)Ljava/lang/Integer;h
+\D:/Programmi/Eclipse/eclipse-workspace/ISW2_21-Deliverable1/src/deliverable/GetJIRAInfo.javaØ Ø(+"7*™
+3h
+\D:/Programmi/Eclipse/eclipse-workspace/ISW2_21-Deliverable1/src/deliverable/GetJIRAInfo.java∫ ∫(’
+“
+h
+\D:/Programmi/Eclipse/eclipse-workspace/ISW2_21-Deliverable1/src/deliverable/GetJIRAInfo.java∫ ∫(8
+%7java.lang.Integer"__mapGet*&
+$
+yearsAndTicketsjava.util.TreeMap*
+
+yearjava.lang.Integer›
+⁄
+h
+\D:/Programmi/Eclipse/eclipse-workspace/ISW2_21-Deliverable1/src/deliverable/GetJIRAInfo.java∫ ∫(=
+%8java.lang.Integer"__mapSet*&
+$
+yearsAndTicketsjava.util.TreeMap*
+
+yearjava.lang.Integer*
+""*
+6*–
+4h
+\D:/Programmi/Eclipse/eclipse-workspace/ISW2_21-Deliverable1/src/deliverable/GetJIRAInfo.java∂ ∂(€
+ÿ
+h
+\D:/Programmi/Eclipse/eclipse-workspace/ISW2_21-Deliverable1/src/deliverable/GetJIRAInfo.java∂ ∂(!
+%6java.lang.Integer"__mapSet*&
+$
+yearsAndTicketsjava.util.TreeMap*
+
+yearjava.lang.Integer*2*
+6*Ω
+5h
+\D:/Programmi/Eclipse/eclipse-workspace/ISW2_21-Deliverable1/src/deliverable/GetJIRAInfo.java≥ ≥( √
+¿
+h
+\D:/Programmi/Eclipse/eclipse-workspace/ISW2_21-Deliverable1/src/deliverable/GetJIRAInfo.java≥ ≥('
+%3java.time.LocalDateTime"
+__arrayGet*!
+
+resolDateListjava.util.List*
+""»≈
+h
+\D:/Programmi/Eclipse/eclipse-workspace/ISW2_21-Deliverable1/src/deliverable/GetJIRAInfo.java≥ ≥(1	
+%4int""java.time.LocalDateTime#getYear()I*
 
-sbjava.lang.StringBuilder*
-""2	append(C)*
-3*§
-3f
-\D:/Programmi/Eclipse/eclipse-workspace/ISW2_21-Deliverable1/src/deliverable/GetJIRAInfo.java$ $(Æ´
-f
-\D:/Programmi/Eclipse/eclipse-workspace/ISW2_21-Deliverable1/src/deliverable/GetJIRAInfo.java$ $(	
-%2int"java.io.Reader#read()I*
+%3java.time.LocalDateTime2	getYear()õ
+ò
+h
+\D:/Programmi/Eclipse/eclipse-workspace/ISW2_21-Deliverable1/src/deliverable/GetJIRAInfo.java≥ ≥(2
+yearjava.lang.Integer"__id*
+	
+%4intñì
+h
+\D:/Programmi/Eclipse/eclipse-workspace/ISW2_21-Deliverable1/src/deliverable/GetJIRAInfo.java¥	 ¥(*
+%5boolean"2java.util.TreeMap#containsKey(Ljava/lang/Object;)Z*&
+$
+yearsAndTicketsjava.util.TreeMap*
+
+yearjava.lang.Integer2containsKey(Ljava/lang/Object;)*
+3
+4*≥
+6h
+\D:/Programmi/Eclipse/eclipse-workspace/ISW2_21-Deliverable1/src/deliverable/GetJIRAInfo.java≤ ≤(ª∏
+h
+\D:/Programmi/Eclipse/eclipse-workspace/ISW2_21-Deliverable1/src/deliverable/GetJIRAInfo.java≤ ≤()	
+%2int"java.util.List#size()I*!
+
+resolDateListjava.util.List2size()*
+5
+1*Û
+7h
+\D:/Programmi/Eclipse/eclipse-workspace/ISW2_21-Deliverable1/src/deliverable/GetJIRAInfo.java±/ ±(>ôñ
+h
+\D:/Programmi/Eclipse/eclipse-workspace/ISW2_21-Deliverable1/src/deliverable/GetJIRAInfo.java±3 ±(<
+%0java.util.TreeMap"java.util.TreeMap´
+®
+h
+\D:/Programmi/Eclipse/eclipse-workspace/ISW2_21-Deliverable1/src/deliverable/GetJIRAInfo.java±/ ±(>
+%1"java.util.TreeMap#<init>()V*
+
+%0java.util.TreeMap¥
+±
+h
+\D:/Programmi/Eclipse/eclipse-workspace/ISW2_21-Deliverable1/src/deliverable/GetJIRAInfo.java± ±(?$
+yearsAndTicketsjava.util.TreeMap"__id*
+
+%0java.util.TreeMap*
+6*è
+1h
+\D:/Programmi/Eclipse/eclipse-workspace/ISW2_21-Deliverable1/src/deliverable/GetJIRAInfo.javaæ æ(êç
+h
+\D:/Programmi/Eclipse/eclipse-workspace/ISW2_21-Deliverable1/src/deliverable/GetJIRAInfo.javaæ æ({
+
+%9void";java.util.TreeMap#forEach(Ljava/util/function/BiConsumer;)V*&
+$
+yearsAndTicketsjava.util.TreeMap*
+""2(forEach(Ljava/util/function/BiConsumer;)‰·
+h
+\D:/Programmi/Eclipse/eclipse-workspace/ISW2_21-Deliverable1/src/deliverable/GetJIRAInfo.java¡$ ¡(>
+%10java.util.Set"+java.util.TreeMap#entrySet()Ljava/util/Set;*&
+$
+yearsAndTicketsjava.util.TreeMap2
+entrySet()·
+ﬁ
+h
+\D:/Programmi/Eclipse/eclipse-workspace/ISW2_21-Deliverable1/src/deliverable/GetJIRAInfo.java¡@ ¡(\
+%11java.util.Comparator"<java.util.Map$Entry#comparingByValue()Ljava/util/Comparator;*"
+java.util.Map$Entry∂
+≥
+h
+\D:/Programmi/Eclipse/eclipse-workspace/ISW2_21-Deliverable1/src/deliverable/GetJIRAInfo.java¡ ¡(]
+%12java.util.Map$Entry"Yjava.util.Collections#max(Ljava/util/Collection;Ljava/util/Comparator;)Ljava/lang/Object;*"
+java.util.Collections*
 
-rdjava.io.Reader2read()*
-2
-1*Ç
-4f
-\D:/Programmi/Eclipse/eclipse-workspace/ISW2_21-Deliverable1/src/deliverable/GetJIRAInfo.java" "(-£†
-f
-\D:/Programmi/Eclipse/eclipse-workspace/ISW2_21-Deliverable1/src/deliverable/GetJIRAInfo.java" "(+
-%0java.lang.StringBuilder"java.lang.StringBuilderµ
-≤
-f
-\D:/Programmi/Eclipse/eclipse-workspace/ISW2_21-Deliverable1/src/deliverable/GetJIRAInfo.java" "(-
-%1"!java.lang.StringBuilder#<init>()V*
-
-%0java.lang.StringBuilder±
-Æ
-f
-\D:/Programmi/Eclipse/eclipse-workspace/ISW2_21-Deliverable1/src/deliverable/GetJIRAInfo.java" "(.
-sbjava.lang.StringBuilder"__id*
-
-%0java.lang.StringBuilder*
-3*Ÿ
-1f
-\D:/Programmi/Eclipse/eclipse-workspace/ISW2_21-Deliverable1/src/deliverable/GetJIRAInfo.java' '(Ê„
-f
-\D:/Programmi/Eclipse/eclipse-workspace/ISW2_21-Deliverable1/src/deliverable/GetJIRAInfo.java' '(
-%4java.lang.String"4java.lang.StringBuilder#toString()Ljava/lang/String;*
-
-sbjava.lang.StringBuilder2
-toString()"Ç
-f
-\D:/Programmi/Eclipse/eclipse-workspace/ISW2_21-Deliverable1/src/deliverable/GetJIRAInfo.java' '(
-
-%4java.lang.String:
-rdjava.io.ReaderB"
+%10java.util.Set*
+
+%11java.util.Comparatorﬂ‹
+h
+\D:/Programmi/Eclipse/eclipse-workspace/ISW2_21-Deliverable1/src/deliverable/GetJIRAInfo.java¡ ¡(f
+%13java.lang.Integer".java.util.Map$Entry#getKey()Ljava/lang/Object;*
+
+%12java.util.Map$Entry2getKey()¨
+©
+h
+\D:/Programmi/Eclipse/eclipse-workspace/ISW2_21-Deliverable1/src/deliverable/GetJIRAInfo.java¡ ¡(g
+myYearjava.lang.Integer"__id*
+
+%13java.lang.IntegerΩ
+∫
+h
+\D:/Programmi/Eclipse/eclipse-workspace/ISW2_21-Deliverable1/src/deliverable/GetJIRAInfo.java¬ ¬(	
+%14java.util.logging.Logger"__id*'*%
+deliverable.GetJIRAInfo"
+loggerõ
+ò
+h
+\D:/Programmi/Eclipse/eclipse-workspace/ISW2_21-Deliverable1/src/deliverable/GetJIRAInfo.java¬ ¬(
+%15java.util.logging.Level"__id*
+""çä
+h
+\D:/Programmi/Eclipse/eclipse-workspace/ISW2_21-Deliverable1/src/deliverable/GetJIRAInfo.java¬ ¬(+
+%16void"\java.util.logging.Logger#log(Ljava/util/logging/Level;Ljava/lang/String;Ljava/lang/Object;)V*!
+
+%14java.util.logging.Logger* 
+
+%15java.util.logging.Level*	
+\n\n{0}*
+
+myYearjava.lang.Integer2Blog(Ljava/util/logging/Level;Ljava/lang/String;Ljava/lang/Object;)"â
+h
+\D:/Programmi/Eclipse/eclipse-workspace/ISW2_21-Deliverable1/src/deliverable/GetJIRAInfo.java√ √(
+
+myYearjava.lang.Integer:
+resolDateListjava.util.ListB"
 deliverable.GetJIRAInfo

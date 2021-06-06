@@ -47,27 +47,23 @@ import java.util.TreeMap;
 public class Main {
 	
 	private static Logger logger = Logger.getLogger(Main.class.getName());
-	private static final String REPO = "D:/Programmi/Eclipse/eclipse-workspace/ISW2_21-Deliverable1/.git";
-	private static final String REPO2 ="D:/Programmi/Eclipse/eclipse-workspace/daffodil/.git";
-	private static Path repoPath = Paths.get("D:/Programmi/Eclipse/eclipse-workspace/ISW2_21-Deliverable1");
-	private static Path repoPath2 = Paths.get("D:/Programmi/Eclipse/eclipse-workspace/daffodil");
-	private static ArrayList<Ticket> ticketList;
+	private static Path repoPath = Paths.get("D:/Programmi/Eclipse/eclipse-workspace/daffodil");
+	private static List<Ticket> ticketList;
 
-	private static Repository repository;
-
-   public static void main(String[] args) throws IllegalStateException, GitAPIException, IOException, ParseException {
+	
+   public static void main(String[] args) throws IllegalStateException, GitAPIException, IOException {
 	   
 	   TreeMap<Integer, ArrayList<Month>> csvEntries = new TreeMap<>();
-	   ticketList = GetJIRAInfo.retrieveTickets2();
-	   ArrayList<RevCommit> commitList = new ArrayList<>();
+	   ticketList = GetJIRAInfo.retrieveTickets();
 	   
-	   getGitINFO.getAllCommit(repoPath2, commitList);
+	   ArrayList<RevCommit> commitList = new ArrayList<>();
+	   GetGitInfo.getAllCommit(repoPath, commitList);
 	   findCommitTicket(commitList, ticketList);
 	   createEntriesCsv(csvEntries);
 	   CSVWriter.writeCsv(csvEntries);
 
-
    	}
+   
    
    public static SortedMap<Integer, ArrayList<Month>> createEntriesCsv(SortedMap<Integer, ArrayList<Month>> csvEntries ) {
 	   
@@ -75,13 +71,9 @@ public class Main {
 	   for(Ticket ticket : ticketList) {
 		   int year = ticket.getResolutionDate().getYear();
 		   Month month = ticket.getResolutionDate().getMonth();
-		   csvEntries.putIfAbsent(year, new ArrayList<Month>());
+		   csvEntries.putIfAbsent(year, new ArrayList<>());
 		   csvEntries.get(year).add(month);
 	   }
-	   
-	   for (Entry<Integer, ArrayList<Month>> entry : csvEntries.entrySet()) {
-		   System.out.println("Key: " + entry.getKey() + ". Value: " + entry.getValue());
-		}
 	   
 	   return csvEntries;
    }
@@ -94,14 +86,9 @@ public class Main {
 	   ArrayList<LocalDate> resolutionDates = new ArrayList<>();
 	   TreeMap<Integer, ArrayList<Month>> yearMonthMap  = new TreeMap<>();
 	   FileWriter myWriter = new FileWriter("filename.txt");
-	   Integer count = 0;
 	   for (Ticket ticket : ticketList) {
-		   count++;
-		   System.out.println("IL TICKET E' : " + ticket.getID());
 		   for (RevCommit rev : commitList) {
 			   String commit = rev.getFullMessage();
-			   //System.out.println("MESSAGGIO COMMIT : \n" + commit.getFullMessage() + "\n\n\n");
-			   //myWriter.write(commit.getFullMessage() + "\n\n\n");
 			   String ticketID1 = ticket.getID();
 			   String ticketID2 = ticketID1.replace("DAFFODIL","DFDL");
 
@@ -118,19 +105,12 @@ public class Main {
 
 		   if (!commitDateList.isEmpty()) {
 			   Collections.sort(commitDateList);
-			   System.out.println("\n\nlista ordinata = " + commitDateList);
-			   LocalDate resolutionDate = commitDateList.get(commitDateList.size()-1);
-			   System.out.println("data più recente = " + resolutionDate);
+			   LocalDate resolutionDate = commitDateList.get(commitDateList.size()-1); // data più recente
 			   ticket.setResolutionDate(resolutionDate);
-
 		   }
 		   
-
 		   commitDateList.clear();
-		   
-
-		   System.out.println("################################\n\n");
-	   
+		   	   
 	   }
    
 	   Iterator<Ticket> ticket = ticketList.iterator();

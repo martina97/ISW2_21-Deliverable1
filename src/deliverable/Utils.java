@@ -1,18 +1,14 @@
 package deliverable;
 
 import java.time.Month;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.TreeMap;
+
+import java.util.List;
 
 public class Utils {
 	
+	private Utils() {}
 	
-	public static void printTreeMap(TreeMap<Object,Object> map) {
-		  map.forEach((key, value) -> System.out.println(key + "= " + value + "\n\n"));
-	}
-	
-	public static Integer countOccurrences(ArrayList<Month> list, Month month) {
+	public static Integer countOccurrences(List<Month> list, Month month) {
 		
 		int count = 0;
 		for (Month m : list) {
@@ -24,8 +20,4 @@ public class Utils {
 	}
 	
 
-public static void main(String[] args){
-		// Do nothing because is a main method
-
-	}
 }

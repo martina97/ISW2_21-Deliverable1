@@ -2,17 +2,18 @@ package deliverable;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.ArrayList;
+import java.util.List;
 
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.InitCommand;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.revwalk.RevCommit;
 
-public class getGitINFO {
+public class GetGitInfo {
 
+	private GetGitInfo() {}
 	
-	public static void getAllCommit(Path repoPath, ArrayList<RevCommit> commitList) throws IllegalStateException, GitAPIException, IOException {
+	public static void getAllCommit(Path repoPath, List<RevCommit> commitList) throws IllegalStateException, GitAPIException, IOException {
 		
 		try (Git git = Git.init().setDirectory(repoPath.toFile()).call()) {
 			 //
@@ -25,10 +26,8 @@ public class getGitINFO {
 		    try (Git git = Git.open(repoPath.toFile())) {
 		    	Iterable<RevCommit> logs = git.log().all().call();
 		    	 for (RevCommit rev : logs) {
-		    		 String message = rev.getFullMessage();
+		    		 // message = rev.getFullMessage()
 		    		 commitList.add(rev);
-		    		 //System.out.print(rev.getFullMessage());
-		    		 //System.out.print(rev.getAuthorIdent().getName());
 		    	 }
 		    }
 	}

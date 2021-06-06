@@ -17,13 +17,9 @@ public class Ticket {
 	private List<String> fileList;
 
 	// costruttore
-	//public Ticket(String id, List<Integer> aV, LocalDateTime resolutionDate, LocalDateTime creationDate) {
 	public Ticket(String id) {
 
 		this.id = id;
-		//this.aV = aV;
-		//this.resolutionDate = resolutionDate;
-		//this.creationDate = creationDate;
 	}
 
 	// get
