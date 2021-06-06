@@ -45,33 +45,26 @@ public class Main {
 
    	}
    
-   
-   public static SortedMap<Integer, ArrayList<Month>> createEntriesCsv(SortedMap<Integer, ArrayList<Month>> csvEntries ) {
-	   
-	   for(Ticket ticket : ticketList) {
-		   int year = ticket.getResolutionDate().getYear();
-		   Month month = ticket.getResolutionDate().getMonth();
-		   csvEntries.putIfAbsent(year, new ArrayList<>());
-		   csvEntries.get(year).add(month);
-	   }
-	   
-	   return csvEntries;
-   }
-   
+
    
    
    public static void findCommitTicket(List<RevCommit> commitList,List<Ticket> ticketList ) throws IOException {
+	   /**
+	    * Per ogni ticket presente in ticketList trovo la resolution date guardando la data dell'ultimo commit 
+	    * in cui e' presente il ticket.
+	    * 
+	    * @param commitList		lista di tutti i commit del progetto
+	    * @param ticketList		lista di tutti i ticket del progetto
+	    */
 	   
 	   ArrayList<LocalDate> commitDateList = new ArrayList<>();
 	   ArrayList<LocalDate> resolutionDates = new ArrayList<>();
 	   TreeMap<Integer, ArrayList<Month>> yearMonthMap  = new TreeMap<>();
-	   FileWriter myWriter = new FileWriter("filename.txt");
 	   for (Ticket ticket : ticketList) {
 		   for (RevCommit rev : commitList) {
 			   String commit = rev.getFullMessage();
 			   String ticketID1 = ticket.getID();
 			   String ticketID2 = ticketID1.replace("DAFFODIL","DFDL");
-
 
 			   if (commit.contains(ticketID1 +",") || commit.contains(ticketID1 +"\r") || commit.contains(ticketID1 +"\n")|| commit.contains(ticketID1 + " ") || commit.contains(ticketID1 +":")
 							 || commit.contains(ticketID1 +".")|| commit.contains(ticketID1 +")")|| commit.contains(ticketID2 +")") || commit.contains(ticketID2 + ",") || commit.endsWith(ticketID1) || commit.endsWith(ticketID2) ||
@@ -84,6 +77,11 @@ public class Main {
 		   
 
 		   if (!commitDateList.isEmpty()) {
+			   /*
+			    * In commitDateList ci sono tutte le date dei commit in cui e' presente il ticket. 
+			    * Ordino le date dalla più vecchia alla piu' recente, e setto come resolution date la data 
+			    * piu' recente, quindi l'ultimo elemento di commitDateList.
+			    */
 			   Collections.sort(commitDateList);
 			   LocalDate resolutionDate = commitDateList.get(commitDateList.size()-1); // data più recente
 			   ticket.setResolutionDate(resolutionDate);
@@ -107,12 +105,23 @@ public class Main {
 			   Integer year = t.getResolutionDate().getYear();
 			   yearMonthMap.putIfAbsent(year, new ArrayList<>());
 			   yearMonthMap.get(year).add(t.getResolutionDate().getMonth());
-			   
 		   }
-		   
 	   }
 	   yearMonthMap.forEach((key, value) -> logger.log(Level.INFO, "key: {0} --> value: {1} ",new Object[] { key, value,}));
-	   myWriter.close();
+   }
+   
+   
+   
+   
+   public static SortedMap<Integer, ArrayList<Month>> createEntriesCsv(SortedMap<Integer, ArrayList<Month>> csvEntries ) {
+	   
+	   for(Ticket ticket : ticketList) {
+		   int year = ticket.getResolutionDate().getYear();
+		   Month month = ticket.getResolutionDate().getMonth();
+		   csvEntries.putIfAbsent(year, new ArrayList<>());
+		   csvEntries.get(year).add(month);
+	   }
+	   return csvEntries;
    }
    
    
