@@ -9,7 +9,6 @@ import org.eclipse.jgit.revwalk.RevCommit;
 
 import entities.Ticket;
 
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -48,7 +47,7 @@ public class Main {
 
    
    
-   public static void findCommitTicket(List<RevCommit> commitList,List<Ticket> ticketList ) throws IOException {
+   public static void findCommitTicket(List<RevCommit> commitList,List<Ticket> ticketList ) {
 	   /**
 	    * Per ogni ticket presente in ticketList trovo la resolution date guardando la data dell'ultimo commit 
 	    * in cui e' presente il ticket.
